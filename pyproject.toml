@@ -14,7 +14,7 @@ keywords = ["UAV", "trajectory optimization", "energy", "SLSQP", "path planning"
 dependencies = ["numpy>=1.24", "scipy>=1.10", "matplotlib>=3.6"]
 
 [project.urls]
-Homepage = "https://github.com/USERNAME/uav-mountain-routing"
+Homepage = "https://github.com/irisliu2010/uav-mountain-routing"
 
 [tool.setuptools]
 packages = ["uav_routing"]
