@@ -1,0 +1,5 @@
+task,h_max_m,energy_kJ,climb_kJ,drag_kJ,length_m,max_alt_m,flight_time_s,feasible,obj_stable
+AB,120,869.5,595.8,273.7,6209.84,1637.9,619.2,True,True
+AB,300,767.1,494.7,272.4,6187.4,1637.9,617.2,True,True
+CD,120,627.7,419.0,208.7,4764.11,1634.1,476.1,True,True
+CD,300,625.4,418.3,207.1,4733.2,1632.9,473.3,True,True

@@ -1,0 +1,20 @@
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "uav-mountain-routing"
+version = "1.0.0"
+description = "Energy-efficient UAV route planning over mountainous terrain via trajectory optimization (SciPy/SLSQP)."
+readme = "README.md"
+requires-python = ">=3.9"
+license = { text = "MIT" }
+authors = [{ name = "Iris Liu" }]
+keywords = ["UAV", "trajectory optimization", "energy", "SLSQP", "path planning"]
+dependencies = ["numpy>=1.24", "scipy>=1.10", "matplotlib>=3.6"]
+
+[project.urls]
+Homepage = "https://github.com/USERNAME/uav-mountain-routing"
+
+[tool.setuptools]
+packages = ["uav_routing"]
