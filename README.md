@@ -52,7 +52,7 @@ useful sanity check (see `scripts/run_sensitivity.py`). Switch with
 ## Install
 
 ```bash
-git clone https://github.com/USERNAME/uav-mountain-routing.git
+git clone https://github.com/irisliu2010/uav-mountain-routing.git
 cd uav-mountain-routing
 pip install -r requirements.txt      # or: pip install -e .
 ```
