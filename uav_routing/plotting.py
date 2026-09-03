@@ -23,7 +23,7 @@ def _terrain_grid(terrain, n=160):
 
 
 def plot_route_3d(scenario, result, ax=None):
-    """3-D surface with the optimised route overlaid."""
+    """3-D surface with the optimized route overlaid."""
     if ax is None:
         fig = plt.figure(figsize=(7, 5.5))
         ax = fig.add_subplot(111, projection="3d")
@@ -81,12 +81,42 @@ def plot_profile(scenario, result, ax=None):
     return ax
 
 
+def plot_routes_grid(scenarios, results_by_key, kind="top", ncols=3):
+    """Lay out per-scenario route plots on a grid (default 2 rows x 3 cols).
+
+    ``kind="top"`` uses :func:`plot_route_top`; ``kind="3d"`` uses
+    :func:`plot_route_3d`. Any unused cells (e.g. the 6th cell for five
+    scenarios) are left blank. Returns the Matplotlib figure.
+    """
+    n = len(scenarios)
+    nrows = int(np.ceil(n / ncols))
+    if kind == "top":
+        fig, axes = plt.subplots(nrows, ncols, figsize=(5.5 * ncols, 5.0 * nrows))
+        axes = np.atleast_1d(axes).ravel()
+        for i, sc in enumerate(scenarios):
+            plot_route_top(sc, results_by_key[sc.key], ax=axes[i])
+        for j in range(n, len(axes)):
+            axes[j].axis("off")
+        fig.tight_layout()
+    elif kind == "3d":
+        fig = plt.figure(figsize=(5.5 * ncols, 5.75 * nrows))
+        for i, sc in enumerate(scenarios):
+            ax = fig.add_subplot(nrows, ncols, i + 1, projection="3d")
+            plot_route_3d(sc, results_by_key[sc.key], ax=ax)
+            ax.set_title(f"{sc.key} — {sc.name}", pad=12)
+        fig.subplots_adjust(left=0.02, right=0.98, top=0.96, bottom=0.02,
+                            wspace=0.10, hspace=0.16)
+    else:
+        raise ValueError("kind must be 'top' or '3d'")
+    return fig
+
+
 def plot_convergence(results_by_key, ax=None):
-    """Normalised convergence curves (best objective so far) per scenario.
+    """Normalized convergence curves (best objective so far) per scenario.
 
     SLSQP evaluates trial points inside its line search that can transiently
     raise the objective; we plot the running minimum (best feasible value seen
-    so far), normalised by each run's first value, which is the standard way to
+    so far), normalized by each run's first value, which is the standard way to
     display convergence and removes line-search transients.
     """
     if ax is None:
@@ -98,7 +128,7 @@ def plot_convergence(results_by_key, ax=None):
         best = np.minimum.accumulate(h)
         ax.plot(np.arange(1, best.size + 1), best / best[0], lw=1.9, label=key)
     ax.set_xlabel("SLSQP iteration")
-    ax.set_ylabel("normalised objective  E / E$_0$")
+    ax.set_ylabel("normalized objective  E / E$_0$")
     ax.set_title("Convergence (best objective so far)")
     ax.legend(fontsize=8)
     ax.grid(alpha=0.3)
